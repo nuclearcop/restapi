@@ -14,7 +14,7 @@ object RestapiKernelBuild extends Build {
     id = "restapi",
     base = file("."),
     settings = defaultSettings ++ AkkaKernelPlugin.distSettings ++ Seq(
-      libraryDependencies ++= Dependencies.clusterKernel,
+      libraryDependencies ++= Dependencies.restapiKernel,
       distJvmOptions in Dist := "-Xms256M -Xmx1024M",
       outputDirectory in Dist := file("target/dist"),
       distBootClass in Dist := "hackco.boot.AkkaKernelBoot"
@@ -50,13 +50,14 @@ object Dependencies {
     val Camel = "2.13.0"
   }
 
-  val clusterKernel = Seq(
+  val restapiKernel = Seq(
     "ch.qos.logback"      %  "logback-classic"      % "1.1.1" force,
     "com.github.nscala-time" %% "nscala-time"       % "0.8.0",
     "com.h2database"      %  "h2"                   % "1.3.170",
     "com.typesafe"        %% "scalalogging-slf4j"   % "1.1.0",
     "com.typesafe.akka"   %% "akka-actor"           % V.Akka,
     "com.typesafe.akka"   %% "akka-camel"           % V.Akka,
+    "com.typesafe.akka"   %% "akka-cluster"         % "2.3.3",
     "com.typesafe.akka"   %% "akka-kernel"          % V.Akka,
     "com.typesafe.akka"   %% "akka-slf4j"           % V.Akka,
     "com.typesafe.akka"   %% "akka-testkit"         % V.Akka,
