@@ -63,7 +63,7 @@ object Dependencies {
     "io.spray"            %  "spray-can"            % V.Spray,
     "io.spray"            %  "spray-routing"        % V.Spray,
     "io.spray"            %  "spray-testkit"        % V.Spray,
-    "io.spray"            %% "spray-json"           % V.SprayJson,
+    "io.spray"            %% "spray-json"           % V.SprayJson
   )
 
 }
