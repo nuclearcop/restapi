@@ -1,4 +1,4 @@
-package hackco.frontend
+package hackco.backend
 
 import com.typesafe.config.ConfigFactory
 import akka.actor._
