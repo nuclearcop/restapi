@@ -24,7 +24,6 @@ object Backend {
 }
 
 class Backend extends Actor {
-
   val cluster = Cluster(context.system)
 
   // subscribe to cluster changes, MemberUp
