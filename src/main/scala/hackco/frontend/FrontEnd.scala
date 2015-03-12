@@ -32,7 +32,7 @@ object FrontEnd {
     implicit val system = ActorSystem("ClusterSystem", config)
     val frontend = system.actorOf(Props[FrontEnd], name = "frontend")
     val sprayApiActor = system.actorOf(Props(classOf[SprayApiServiceActor], frontend), "sprayApiActor")
-    IO(Http) ! Http.Bind(sprayApiActor, interface = "localhost", port = ports.httpPort)
+    IO(Http) ! Http.Bind(sprayApiActor, interface = "0.0.0.0", port = ports.httpPort)
   }
 }
 
