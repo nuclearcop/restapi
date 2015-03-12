@@ -21,22 +21,6 @@ import hackco.frontend.MessageTypes.DoubleNumberRequest
  * Created by robert courtney on 12/03/15
  */
 
-//trait SprayApiService extends HttpService {
-//  import MyJsonProtocol._
-//
-//  val sprayRoute =
-//    path("double" / LongNumber) { number =>
-//      detach() {
-//        respondWithMediaType(`application/json`) {
-//          complete {
-//
-//            DoubleReply(number, number*2)
-//          }
-//        }
-//      }
-//    }
-//}
-
 class SprayApiServiceActor(frontEnd: ActorRef) extends Actor with ActorLogging with HttpService {
   def actorRefFactory = context
   def receive = runRoute(sprayRoute)
@@ -44,7 +28,6 @@ class SprayApiServiceActor(frontEnd: ActorRef) extends Actor with ActorLogging w
   import MyJsonProtocol._
 
   implicit val timeout = Timeout.apply(10 seconds) // 10 second timeout
-
   implicit val execCtx = context.system.dispatcher
 
   val sprayRoute =
@@ -63,26 +46,6 @@ class SprayApiServiceActor(frontEnd: ActorRef) extends Actor with ActorLogging w
         }
       }
     }
-
-//      frontEnd ? DoubleNumberRequest(number) onSuccess {
-//        case feReply: DoubleNumberReply =>
-//          respondWithMediaType(`application/json`) {
-//          complete {
-//            DoubleReply(feReply.number, feReply.result)
-//          }
-//        }
-//      }
 }
 
-//object ApiBoot extends App with Logging {
-//  implicit val system = ActorSystem("spray-api-service")
-//  val service = system.actorOf(Props(new SprayApiDemoServiceActor()), "spray-service")
-//  IO(Http) ! Http.Bind(service, interface = "localhost", port = 9001)
-//  sys.addShutdownHook {
-//    system.shutdown()
-//    system.awaitTermination()
-//  }
-//}
-//
-
-class SprayApi { }
+//class SprayApi { }
