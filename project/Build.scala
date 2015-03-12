@@ -26,8 +26,8 @@ object RestapiKernelBuild extends Build {
     version := Version,
     scalaVersion := ScalaVersion,
     crossPaths := false,
-    organizationName := "Hack Attack"
-    //organizationHomepage := Some(url("http://robertcourtney.net"))
+    organizationName := "Hack Attack",
+    organizationHomepage := Some(url("http://hckrnews.com"))
   )
 
   lazy val defaultSettings = buildSettings ++ Seq(
