@@ -52,33 +52,18 @@ object Dependencies {
 
   val restapiKernel = Seq(
     "ch.qos.logback"      %  "logback-classic"      % "1.1.1" force,
-    "com.github.nscala-time" %% "nscala-time"       % "0.8.0",
-    "com.h2database"      %  "h2"                   % "1.3.170",
     "com.typesafe"        %% "scalalogging-slf4j"   % "1.1.0",
     "com.typesafe.akka"   %% "akka-actor"           % V.Akka,
-    "com.typesafe.akka"   %% "akka-camel"           % V.Akka,
     "com.typesafe.akka"   %% "akka-cluster"         % "2.3.3",
     "com.typesafe.akka"   %% "akka-kernel"          % V.Akka,
     "com.typesafe.akka"   %% "akka-slf4j"           % V.Akka,
     "com.typesafe.akka"   %% "akka-testkit"         % V.Akka,
-    "com.typesafe.slick"  %% "slick"                % V.Slick,
-    "com.typesafe.slick"  %% "slick-extensions"     % V.SlickExtensions,
     "commons-codec"       %  "commons-codec"        % "1.9",
     "commons-dbcp"        %  "commons-dbcp"         % "1.4",
     "io.spray"            %  "spray-can"            % V.Spray,
     "io.spray"            %  "spray-routing"        % V.Spray,
     "io.spray"            %  "spray-testkit"        % V.Spray,
     "io.spray"            %% "spray-json"           % V.SprayJson,
-    "mysql"               %  "mysql-connector-java" % "5.1.29",
-    "org.apache.camel"    %  "camel-jms"            % V.Camel withSources(),
-    "org.apache.camel"    %  "camel-jetty"          % V.Camel withSources(),
-    "org.apache.camel"    %  "camel-ftp"            % V.Camel withSources(),
-    "org.apache.camel"    %  "camel-test"           % V.Camel withSources(),
-    "org.apache.sshd"     % "sshd-core"             % "0.12.0",
-    "org.codehaus.janino" % "janino"                % "2.6.1",
-    "org.mockito"         % "mockito-core"          % "1.9.5" % "test",
-    "org.scalacheck"      %% "scalacheck"           % "1.11.3"  % "test" withSources(),
-    "org.scalatest"       %%  "scalatest"           % "2.1.2"   % "test" withSources()
   )
 
 }
