@@ -15,27 +15,24 @@ import spray.can.Http
  */
 
 object FrontEnd {
+  case class ListeningPorts(seedNodePort: Int, httpPort: Int)
+
   def main(args: Array[String]): Unit = {
     // Override the configuration of the port when specified as program argument
-    val port = if (args.isEmpty) "0" else args(0)
-    val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=$port").
+    println("args: " + args.toList.toString)
+    val ports = args.size match {
+      case i: Int if i == 0 => ListeningPorts(0, 9000)
+      case i: Int if i == 1 => ListeningPorts(args(0).toInt, 9000)
+      case i: Int if i > 1  => ListeningPorts(args(0).toInt, args(1).toInt)
+    }
+    val config = ConfigFactory.parseString(s"akka.remote.netty.tcp.port=" + ports.seedNodePort).
       withFallback(ConfigFactory.parseString("akka.cluster.roles = [frontend]")).
       withFallback(ConfigFactory.load())
 
     implicit val system = ActorSystem("ClusterSystem", config)
     val frontend = system.actorOf(Props[FrontEnd], name = "frontend")
     val sprayApiActor = system.actorOf(Props(classOf[SprayApiServiceActor], frontend), "sprayApiActor")
-    IO(Http) ! Http.Bind(sprayApiActor, interface = "localhost", port = 9001)
-
-//    val counter = new AtomicInteger
-//    import system.dispatcher
-//    system.scheduler.schedule(2.seconds, 2.seconds) {
-//      implicit val timeout = Timeout(5 seconds)
-  //      (frontend ? TransformationJob("hello-" + counter.incrementAndGet())) onSuccess {
-//        case result => println(result)
-//      }
-//    }
-
+    IO(Http) ! Http.Bind(sprayApiActor, interface = "localhost", port = ports.httpPort)
   }
 }
 
