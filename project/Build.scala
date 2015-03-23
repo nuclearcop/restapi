@@ -63,7 +63,10 @@ object Dependencies {
     "io.spray"            %  "spray-can"            % V.Spray,
     "io.spray"            %  "spray-routing"        % V.Spray,
     "io.spray"            %  "spray-testkit"        % V.Spray,
-    "io.spray"            %% "spray-json"           % V.SprayJson
+    "io.spray"            %% "spray-json"           % V.SprayJson,
+    "org.mockito"         % "mockito-core"          % "1.9.5"   % "test",
+    "org.scalacheck"      %% "scalacheck"           % "1.11.3"  % "test" withSources(),
+    "org.scalatest"       %%  "scalatest"           % "2.1.2"   % "test" withSources()
   )
 
 }
