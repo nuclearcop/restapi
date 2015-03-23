@@ -1,3 +1,3 @@
 #!/bin/bash
 
-sbt compile "run-main hackco.backend.BackEnd $1"
+sbt "run-main hackco.backend.BackEnd $1"
