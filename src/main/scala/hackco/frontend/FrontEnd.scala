@@ -19,7 +19,6 @@ object FrontEnd {
 
   def main(args: Array[String]): Unit = {
     // Override the configuration of the port when specified as program argument
-    println("args: " + args.toList.toString)
     val ports = args.size match {
       case i: Int if i == 0 => ListeningPorts(0, 9000)
       case i: Int if i == 1 => ListeningPorts(args(0).toInt, 9000)
@@ -30,7 +29,7 @@ object FrontEnd {
       withFallback(ConfigFactory.load())
 
     implicit val system = ActorSystem("ClusterSystem", config)
-    val frontend = system.actorOf(Props[FrontEnd], name = "frontend")
+    val frontend = system.actorOf(Props[FrontEnd], "frontend")
     val sprayApiActor = system.actorOf(Props(classOf[SprayApiServiceActor], frontend), "sprayApiActor")
     IO(Http) ! Http.Bind(sprayApiActor, interface = "0.0.0.0", port = ports.httpPort)
   }
