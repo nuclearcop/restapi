@@ -16,6 +16,7 @@ import akka.util.Timeout
 import scala.concurrent.ExecutionContext.global
 import scala.concurrent.Await
 import hackco.frontend.MessageTypes.DoubleNumberRequest
+import scala.util.Random
 
 /**
  * Created by robert courtney on 12/03/15
@@ -31,20 +32,37 @@ class SprayApiServiceActor(frontEnd: ActorRef) extends Actor with ActorLogging w
   implicit val execCtx = context.system.dispatcher
 
   val sprayRoute =
-    path("double" / LongNumber) { number =>
-      respondWithMediaType(`application/json`) {
-        complete {
-          val myFuture = frontEnd ? DoubleNumberRequest(number)
-          val result = Await.result(myFuture, 10 seconds)
-          result match {
-            case reply: DoubleNumberReply =>
-              log.info("result: " + result.toString)
-              reply
-            case _ =>
-              FailedRequest("Could not double your number. Sorry.")
+    pathPrefix("double") {
+      path(LongNumber) { number =>
+        respondWithMediaType(`application/json`) {
+          complete {
+            val myFuture = frontEnd ? DoubleNumberRequest(number)
+            val result = Await.result(myFuture, 10 seconds)
+            result match {
+              case reply: DoubleNumberReply =>
+                log.info("result: " + result.toString)
+                reply
+              case _ =>
+                FailedRequest("Could not double your number. Sorry.")
+            }
           }
         }
-      }
+      } ~
+        path("rand") {
+          respondWithMediaType(`application/json`) {
+            complete {
+              val myFuture = frontEnd ? DoubleNumberRequest(Random.nextLong().abs)
+              val result = Await.result(myFuture, 10 seconds)
+              result match {
+                case reply: DoubleNumberReply =>
+                  log.info("result: " + result.toString)
+                  reply
+                case _ =>
+                  FailedRequest("Could not double your number. Sorry.")
+              }
+            }
+          }
+        }
     }
 }
 
